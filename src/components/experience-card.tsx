@@ -27,7 +27,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
           {experience.highlights.map((item) => (
             <span
               key={item}
-              className="rounded-full border border-[#818cf8]/30 bg-[#818cf8]/10 px-3 py-1 text-xs font-medium text-[#c7d2fe]"
+              className="rounded-full border border-[#818cf8]/30 bg-[#818cf8]/10 px-3 py-1 text-xs font-medium text-[#c7d2fe] transition hover:-translate-y-0.5 hover:border-[#a5b4fc] hover:bg-[#818cf8]/20"
             >
               {item}
             </span>
@@ -36,7 +36,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
       )}
       <ul className="mt-5 flex-1 space-y-3 text-sm leading-relaxed text-zinc-300">
         {experience.bullets.map((item) => (
-          <li key={item} className="flex gap-2">
+          <li key={item} className="-mx-2 flex gap-2 rounded-xl px-2 py-1.5 transition hover:bg-white/6">
             <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-[#818cf8]" />
             <span>{item}</span>
           </li>
@@ -47,10 +47,10 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
           href={experience.link}
           target="_blank"
           rel="noreferrer"
-          className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white/90 hover:text-white flex-shrink-0"
+          className="group/link mt-5 inline-flex flex-shrink-0 items-center gap-2 text-sm font-semibold text-white/90 transition hover:text-[#c7d2fe]"
         >
           Visit site
-          <span aria-hidden>↗</span>
+          <span aria-hidden className="transition group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">↗</span>
         </a>
       )}
     </article>

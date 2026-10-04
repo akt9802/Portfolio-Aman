@@ -7,14 +7,14 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] transition hover:border-white/20 hover:bg-white/[0.07]">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] transition duration-300 hover:border-[#fdba74]/30 hover:bg-white/[0.07] sm:hover:-translate-y-1">
       <div className="relative h-52 w-full flex-shrink-0 overflow-hidden bg-zinc-900">
         <Image
           src={project.image}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-contain transition-all duration-700 group-hover:brightness-110"
+          className="object-contain transition duration-700 group-hover:scale-105 group-hover:brightness-110"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80 transition-opacity duration-500 group-hover:opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-tr from-[#f97316]/0 via-[#f97316]/0 to-[#c026d3]/0 transition-all duration-700 group-hover:from-[#f97316]/10 group-hover:via-[#f97316]/5 group-hover:to-[#c026d3]/10" />

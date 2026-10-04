@@ -31,10 +31,13 @@ const navItems = [
 
 export default function Home() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const [activeSection, setActiveSection] = useState("overview");
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const sections = document.querySelectorAll("section[id]");
+
+    const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -45,11 +48,24 @@ export default function Home() {
       { threshold: 0.05, rootMargin: "0px" }
     );
 
-    const sections = document.querySelectorAll("section[id]");
-    sections.forEach((section) => observer.observe(section));
+    const activeObserver = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { threshold: [0.2, 0.45], rootMargin: "-10% 0px -40% 0px" }
+    );
+
+    sections.forEach((section) => {
+      revealObserver.observe(section);
+      activeObserver.observe(section);
+    });
 
     return () => {
-      sections.forEach((section) => observer.unobserve(section));
+      revealObserver.disconnect();
+      activeObserver.disconnect();
     };
   }, []);
 
@@ -94,29 +110,39 @@ export default function Home() {
                 )}
               </button>
               <nav className="hidden items-center gap-1 text-xs font-medium text-zinc-400 lg:flex">
-                {navItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 transition hover:bg-white/8 hover:text-white"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                {navItems.map((item) => {
+                  const active = activeSection === item.href.slice(1);
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className={`shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 transition ${
+                        active ? "bg-white text-black" : "hover:bg-white/8 hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
               </nav>
             </div>
             {menuOpen && (
               <nav className="mt-2 grid gap-1 border-t border-white/10 pt-2 lg:hidden">
-                {navItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="rounded-xl px-3 py-3 text-sm font-medium text-zinc-200 hover:bg-white/8 hover:text-white"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                {navItems.map((item) => {
+                  const active = activeSection === item.href.slice(1);
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setMenuOpen(false)}
+                      className={`rounded-xl px-3 py-3 text-sm font-medium transition ${
+                        active ? "bg-white text-black" : "text-zinc-200 hover:bg-white/8 hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
               </nav>
             )}
           </div>
@@ -193,25 +219,15 @@ export default function Home() {
                 <EducationCard entry={entry} />
               </div>
             ))}
-            <div className={`space-y-6 rounded-3xl border border-white/5 bg-white/5 p-4 transition-all duration-1000 sm:p-6 ${
+            <div className={`rounded-3xl border border-white/10 bg-white/[0.04] px-4 py-2 transition-all duration-1000 sm:px-6 ${
               visibleSections.has('education')
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-12'
             }`} style={{ transitionDelay: '300ms' }}>
-              <p className="text-sm font-medium text-zinc-400">Skills</p>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {skillCategories.map((category, idx) => (
-                  <div
-                    key={category.title}
-                    className={`transition-all duration-500 ease-out ${
-                      visibleSections.has('education')
-                        ? 'opacity-100 scale-100'
-                        : 'opacity-0 scale-95'
-                    }`}
-                    style={{ transitionDelay: `${400 + idx * 80}ms` }}
-                  >
-                    <SkillCategoryCard category={category} />
-                  </div>
+              <p className="pt-4 text-sm font-medium text-zinc-400">Skills</p>
+              <div className="mt-1">
+                {skillCategories.map((category) => (
+                  <SkillCategoryCard key={category.title} category={category} />
                 ))}
               </div>
             </div>

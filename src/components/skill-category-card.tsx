@@ -6,16 +6,15 @@ type SkillCategoryCardProps = {
 
 export function SkillCategoryCard({ category }: SkillCategoryCardProps) {
   return (
-    <div className="group flex min-h-[150px] flex-col rounded-2xl border border-white/5 bg-white/5 p-4 transition-all duration-500 hover:border-white/15 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_20px_rgba(249,115,22,0.1)] sm:p-5 sm:hover:scale-[1.02]">
-      <p className="text-sm font-medium text-[#fdba74]">
+    <div className="group/row grid gap-3 border-b border-white/8 py-4 transition-colors last:border-b-0 last:pb-0 hover:bg-white/[0.03] sm:grid-cols-[11rem_1fr] sm:items-center sm:gap-6 sm:-mx-3 sm:rounded-2xl sm:px-3">
+      <p className="text-sm font-medium text-[#fdba74] transition-colors group-hover/row:text-[#fed7aa]">
         {category.title}
       </p>
-      <ul className="mt-3 flex flex-wrap gap-2 text-sm text-white/80">
-        {category.items.map((item, idx) => (
+      <ul className="flex flex-wrap gap-2">
+        {category.items.map((item) => (
           <li
             key={item}
-            className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-300 transition-all duration-300 group-hover:border-white/20 group-hover:bg-white/5 group-hover:scale-105 group-hover:text-zinc-200"
-            style={{ transitionDelay: `${idx * 30}ms` }}
+            className="cursor-default rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-sm text-zinc-200 transition duration-200 hover:-translate-y-0.5 hover:border-[#fdba74]/50 hover:bg-[#fdba74]/15 hover:text-white"
           >
             {item}
           </li>
@@ -24,4 +23,3 @@ export function SkillCategoryCard({ category }: SkillCategoryCardProps) {
     </div>
   );
 }
-

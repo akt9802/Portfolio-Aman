@@ -59,7 +59,7 @@ export const heroContent = {
   avatar: "/profile.png",
   ctaPrimary: {
     label: "Connect on LinkedIn",
-    href: "https://www.linkedin.com/in/aman931120/",
+    href: "https://www.linkedin.com/in/akt9802/",
   },
   ctaSecondary: {
     label: "View GitHub",
@@ -206,7 +206,7 @@ export const insights: Insight[] = [
     title: "Central India Hackathon (CIH): Finalist",
     summary:
       "Achieved finalist recognition among 2,000+ teams at the Central India Hackathon.",
-    link: "https://www.linkedin.com/in/aman931120/",
+    link: "https://www.linkedin.com/in/akt9802/",
   },
 ];
 
@@ -228,7 +228,7 @@ export const contactLinks = [
   },
   {
     label: "LinkedIn",
-    value: "linkedin.com/in/aman931120",
-    href: "https://www.linkedin.com/in/aman931120/",
+    value: "linkedin.com/in/akt9802/",
+    href: "https://www.linkedin.com/in/akt9802/",
   },
 ];

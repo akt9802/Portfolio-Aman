@@ -16,7 +16,7 @@ export function ContactSection() {
         <div className="w-full rounded-2xl border border-white/5 bg-white/5 p-4 sm:p-6 lg:max-w-sm">
           <ul className="space-y-4 text-sm">
             {contactLinks.map((link) => (
-              <li key={link.label} className="flex flex-col gap-1">
+              <li key={link.label} className="-mx-2 flex flex-col gap-1 rounded-xl px-2 py-2 transition hover:bg-white/6">
                 <span className="text-xs text-zinc-500">
                   {link.label}
                 </span>
