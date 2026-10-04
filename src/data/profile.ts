@@ -6,6 +6,7 @@ export type Experience = {
   summary: string;
   bullets: string[];
   link?: string;
+  highlights?: string[];
 };
 
 export type Project = {
@@ -50,12 +51,12 @@ export type Insight = {
 
 export const heroContent = {
   name: "Aman Kumar",
-  headline: "New-grad SDE | Full-Stack Developer | SDE-1 Aspirant",
+  headline: "Software Engineer | Full-Stack Developer",
   subline:
-    "New-grad SDE with 1906 LeetCode rating and production experience shipping Next.js + Django features for 60k+ user fintech workflows. Final-year B.Tech CSE (AI & DS) student at IIIT Manipur. Seeking full-time SDE-1 roles.",
-  availability: "Available for full-time SDE-1 roles",
-  location: "Mumbai • Open to relocation",
-  avatar: "https://drive.google.com/uc?export=view&id=168GS1NogGpAoDTxYaFrEeg276_UkPgE4",
+    "Software Engineer at Saarathi Finance, building Nirnay — the in-house loan system now live across 7 states. B.Tech CSE (AI & DS) at IIIT Manipur with a CGPA of 8.0. LeetCode Knight (1906) with 1000+ problems solved.",
+  availability: "Software Engineer · Saarathi Finance",
+  location: "Mumbai",
+  avatar: "/profile.png",
   ctaPrimary: {
     label: "Connect on LinkedIn",
     href: "https://www.linkedin.com/in/aman931120/",
@@ -72,40 +73,30 @@ export const heroContent = {
 
 export const stats = [
   { label: "LeetCode Rating", value: "1906" },
-  { label: "LeetCode Problems Solved", value: "1000+" },
+  { label: "Problems Solved", value: "1000+" },
   { label: "Codeforces Rating", value: "1455" },
-  { label: "Contest Achievement", value: "LeetCode Rank 563" },
-  { label: "Current Role", value: "SDE Intern" },
-  { label: "Years of Coding", value: "3+" },
+  { label: "Contest Rank", value: "563" },
+  { label: "CGPA", value: "8.0" },
+  { label: "States Live", value: "7" },
 ];
 
 export const experiences: Experience[] = [
   {
     company: "Saarathi Finance",
-    role: "SDE Intern",
+    role: "Software Engineer",
     period: "Aug 2025 – Present",
     location: "Mumbai",
     summary:
-      "Developed core backend and frontend features for Telecaller Workflow, Data Collection, and Policy Manager modules using Django, Next.js and TypeScript.",
+      "Leading frontend architecture for Nirnay, the in-house replacement for the Nucleus LOS, and shipping full-stack modules for collections, data, and telecalling.",
+    highlights: ["7 states", "400+ loans / month", "50+ telecallers", "7K+ records / month"],
     bullets: [
-      "Developed core backend and frontend features for Telecaller Workflow, Data Collection, and Policy Manager modules using Django, Next.js and TypeScript; built scalable APIs serving 60k+ customer records.",
-      "Designed and implemented 100+ REST APIs with validation, retries, and error handling, reducing production submission failures while optimizing Next.js performance.",
-      "Debugged and resolved 10+ production issues on live systems, improving internal tool reliability.",
+      "Led frontend architecture and delivery for Nirnay, an initiative replacing the third-party Nucleus LOS system; designed the split-dashboard workflow and reviewed team PRs over 3 months of development, now live across 7 states and processing 400+ loan applications per month.",
+      "Initialized the company’s first Next.js architecture from scratch, including the authentication flow and API layer that replaced legacy Django-template pages; proposed the BFF and reverse-proxy patterns adopted by the team.",
+      "Built the full-stack Portfolio Manager module, designing 20+ REST APIs to track EMI default risk on disbursed loans, log collection call outcomes, and schedule borrower follow-ups.",
+      "Delivered the Data Collection module full-stack, designing 10+ REST APIs that process 7K+ customer records per month.",
+      "Built the Telecaller Workflow frontend end to end — lead, task, and supervisor views now used daily by 50+ telecallers.",
     ],
     link: "https://www.saarathifinance.com/",
-  },
-  {
-    company: "MyRevue",
-    role: "Frontend Intern",
-    period: "Oct 2024 – Feb 2025",
-    location: "Remote",
-    summary:
-      "Implemented production-ready React frontend components and led user research with interactive Figma prototypes.",
-    bullets: [
-      "Implemented production-ready React frontend components that improved interface responsiveness and delivered a significantly more polished user experience.",
-      "Led user research and developed interactive Figma prototypes; collaborated with the team to iterate designs, resulting in significantly improved website usability and layout consistency.",
-    ],
-    link: "https://myrevue.app/",
   },
 ];
 
@@ -131,30 +122,10 @@ export const projects: Project[] = [
     image: "/prasikshan.png",
   },
   {
-    title: "FinSense — Intelligent Financial Analysis Platform",
-    description:
-      "A premium financial analytics platform for smarter spending decisions. Features expense tracking with category/merchant details, recurring expense automation, monthly budget planning with budget-vs-actual tracking, JWT-based auth with bcrypt, and a modern glassmorphism UI with animated components.",
-    stack: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "JWT",
-      "Tailwind CSS",
-      "Docker",
-      "Nginx",
-    ],
-    liveUrl: "https://finsense.akt9802.in/",
-    repoUrl: "https://github.com/akt9802/FinSense",
-    image: "/finsense.png",
-  },
-  {
     title: "LocalSearch++ — Local Search Engine",
     description:
       "Built a local document search engine in C++ that crawls .txt files recursively, performs text normalization, tokenization, stopword removal, and builds inverted & positional indexes for fast keyword and exact phrase search. Implemented TF-IDF relevance ranking and a CLI-based search tool with flat-file index persistence to enable index-once, query-many and faster startup by loading prebuilt indexes.",
-    stack: ["C++", "Inverted Index", "TF-IDF", "File I/O", "Data Structures"],
+    stack: ["C++", "Inverted Index", "TF-IDF", "File I/O"],
     repoUrl: "https://github.com/akt9802/localsearch",
     image: "https://opengraph.githubassets.com/1/akt9802/localsearch-plus-plus",
   },
@@ -163,17 +134,18 @@ export const projects: Project[] = [
 export const education: Education[] = [
   {
     school: "Indian Institute of Information Technology, Manipur",
-    program: "B.Tech • Computer Science and Engineering (AI & DS)",
-    period: "2022 – Expected May 2026",
+    program: "Bachelor of Technology (Computer Science and Engineering [AI & DS])",
+    period: "2022 – 2026",
     location: "Manipur, India",
-    details: "Final-year student with strong foundations in Data Structures, Algorithms, OOP, DBMS, OS, and Computer Networks.",
-    score: "CGPA: 7.9",
+    details:
+      "Coursework across data structures and algorithms, object-oriented programming, DBMS, operating systems, and computer networks.",
+    score: "CGPA: 8.0",
   },
 ];
 
 export const skillCategories: SkillCategory[] = [
   {
-    title: "Core CS Fundamentals",
+    title: "Core CS",
     items: ["Data Structures & Algorithms", "OOPs", "DBMS", "OS", "Computer Networks"],
   },
   {
@@ -182,18 +154,18 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Frontend",
-    items: ["Next.js", "React.js", "CSS", "Tailwind CSS"],
+    items: ["Next.js", "React.js", "CSS (Tailwind)"],
   },
   {
     title: "Backend",
-    items: ["Node.js", "Express.js", "Django", "RESTful APIs"],
+    items: ["Node.js", "Express.js", "Django"],
   },
   {
-    title: "Databases & Storage",
+    title: "Databases",
     items: ["MongoDB", "MySQL", "Redis"],
   },
   {
-    title: "Deployment & DevOps",
+    title: "Deployment",
     items: ["Docker", "Vercel", "Render", "GitHub Actions"],
   },
   {
@@ -214,12 +186,6 @@ export const profileHighlights: ProfileHighlight[] = [
     summary: "Active competitive programmer with Specialist rank on Codeforces.",
     metric: "Max Rating 1455 (Specialist)",
     link: "https://codeforces.com/profile/akt9802",
-  },
-  {
-    platform: "LeetCode Contests",
-    summary: "Global Rank 563 in LeetCode Weekly Contest 460.",
-    metric: "Top performers globally",
-    link: "https://leetcode.com/akt9802",
   },
 ];
 
@@ -262,7 +228,7 @@ export const contactLinks = [
   },
   {
     label: "LinkedIn",
-    value: "linkedin.com/in/akt9802",
+    value: "linkedin.com/in/aman931120",
     href: "https://www.linkedin.com/in/aman931120/",
   },
 ];

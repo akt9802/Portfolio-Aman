@@ -6,8 +6,8 @@ type SkillCategoryCardProps = {
 
 export function SkillCategoryCard({ category }: SkillCategoryCardProps) {
   return (
-    <div className="group flex min-h-[150px] flex-col rounded-2xl border border-white/5 bg-white/5 p-5 transition-all duration-500 hover:border-white/15 hover:bg-white/10 hover:scale-[1.02] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_20px_rgba(249,115,22,0.1)]">
-      <p className="text-xs uppercase tracking-[0.4em] text-[#f97316] transition-colors duration-300 group-hover:text-[#fb923c]">
+    <div className="group flex min-h-[150px] flex-col rounded-2xl border border-white/5 bg-white/5 p-4 transition-all duration-500 hover:border-white/15 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_20px_rgba(249,115,22,0.1)] sm:p-5 sm:hover:scale-[1.02]">
+      <p className="text-sm font-medium text-[#fdba74]">
         {category.title}
       </p>
       <ul className="mt-3 flex flex-wrap gap-2 text-sm text-white/80">

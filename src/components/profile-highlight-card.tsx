@@ -34,6 +34,9 @@ const iconMap: Record<string, React.ReactNode> = {
       className="h-8 w-8 object-contain"
     />
   ),
+  Codeforces: (
+    <span className="text-sm font-bold tracking-tight text-white">CF</span>
+  ),
 };
 
 export function ProfileHighlightCard({ highlight }: ProfileHighlightCardProps) {
@@ -44,7 +47,7 @@ export function ProfileHighlightCard({ highlight }: ProfileHighlightCardProps) {
       href={highlight.link}
       target="_blank"
       rel="noreferrer"
-      className="group relative flex h-full flex-col rounded-3xl border border-white/5 bg-gradient-to-br from-white/10 to-white/0 p-6 transition-all duration-500 hover:border-white/20 hover:scale-[1.03] hover:shadow-[0_30px_100px_rgba(0,0,0,0.5),0_0_30px_rgba(56,189,248,0.2)] hover:bg-gradient-to-br hover:from-white/15 hover:to-white/5"
+      className="group relative flex h-full flex-col rounded-3xl border border-white/5 bg-gradient-to-br from-white/10 to-white/0 p-5 transition-all duration-500 hover:border-white/20 hover:bg-gradient-to-br hover:from-white/15 hover:to-white/5 hover:shadow-[0_30px_100px_rgba(0,0,0,0.5),0_0_30px_rgba(56,189,248,0.2)] sm:p-6 sm:hover:scale-[1.03]"
     >
       <div className="flex items-center gap-3 flex-shrink-0">
         {icon && (
@@ -52,7 +55,7 @@ export function ProfileHighlightCard({ highlight }: ProfileHighlightCardProps) {
             {icon}
           </div>
         )}
-        <p className="text-xs uppercase tracking-[0.4em] text-[#38bdf8] transition-colors duration-300 group-hover:text-[#60d5fa]">
+        <p className="text-sm font-medium text-[#7dd3fc]">
           {highlight.platform}
         </p>
       </div>

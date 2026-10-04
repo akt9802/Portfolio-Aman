@@ -18,10 +18,10 @@ export function SectionHeading({
 
   return (
     <div className={`flex flex-col gap-3 ${alignment} max-w-2xl`}>
-      <span className="text-sm uppercase tracking-[0.3em] text-[#a1a1aa]">
+      <span className="text-sm font-medium text-[#fdba74]">
         {kicker}
       </span>
-      <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl">
+      <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">
         {title}
       </h2>
       {description && (

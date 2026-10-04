@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { Hero } from "@/components/hero";
 import { ExperienceCard } from "@/components/experience-card";
 import { ProjectCard } from "@/components/project-card";
@@ -7,20 +8,30 @@ import { ContactSection } from "@/components/contact-section";
 import { EducationCard } from "@/components/education-card";
 import { SkillCategoryCard } from "@/components/skill-category-card";
 import { ProfileHighlightCard } from "@/components/profile-highlight-card";
+import { InsightCard } from "@/components/insight-card";
 import {
   education,
   experiences,
-  heroContent,
+  insights,
   profileHighlights,
   projects,
   skillCategories,
 } from "@/data/profile";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+
+const navItems = [
+  { label: "Overview", href: "#overview" },
+  { label: "Experience", href: "#experience" },
+  { label: "Work", href: "#projects" },
+  { label: "Academics", href: "#education" },
+  { label: "Profiles", href: "#profiles" },
+  { label: "Achievements", href: "#achievements" },
+  { label: "Contact", href: "#contact" },
+];
 
 export default function Home() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
-  const [headerVisible, setHeaderVisible] = useState(true);
-  const headerRef = useRef<HTMLElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,7 +42,7 @@ export default function Home() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
+      { threshold: 0.05, rootMargin: "0px" }
     );
 
     const sections = document.querySelectorAll("section[id]");
@@ -42,91 +53,82 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    const headerElement = headerRef.current;
-    if (!headerElement) return;
-
-    const headerObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setHeaderVisible(entry.isIntersecting);
-        });
-      },
-      { threshold: 0, rootMargin: "-100px 0px 0px 0px" }
-    );
-
-    headerObserver.observe(headerElement);
-
-    return () => {
-      if (headerElement) {
-        headerObserver.unobserve(headerElement);
-      }
-      headerObserver.disconnect();
-    };
-  }, []);
-
   return (
     <div className="min-h-screen bg-[#010104] pb-16 text-white">
       <div className="bg-mesh" />
       <div className="bg-noise" />
-      <div className="mx-auto flex max-w-7xl flex-col gap-16 px-4 pt-10 sm:px-6 lg:px-8">
-        <header 
-          ref={headerRef}
-          className={`relative z-40 transition-all duration-700 ease-in-out ${
-            headerVisible 
-              ? "opacity-100 translate-y-0 blur-0 scale-100" 
-              : "opacity-0 -translate-y-8 blur-md scale-95 pointer-events-none"
-          }`}
-        >
-          <div className="relative mx-auto max-w-6xl rounded-[999px] border border-white/10 bg-gradient-to-r from-white/[0.08] via-white/[0.06] to-white/[0.08] px-8 py-6 shadow-[0_25px_70px_rgba(0,0,0,0.4),0_0_60px_rgba(249,115,22,0.1)] backdrop-blur-xl">
-            {/* Animated gradient border glow */}
-            <div className="absolute -inset-[1px] rounded-[999px] bg-gradient-to-r from-[#f97316]/20 via-[#c026d3]/20 to-[#2563eb]/20 opacity-60 blur-sm -z-10 animate-gradient-border" />
-            
-            <div className="flex flex-wrap items-center justify-between gap-8">
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#f97316] to-[#c026d3] opacity-30 blur-md animate-pulse-slow" />
-                  <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-[#f97316]/40 to-[#c026d3]/40 border border-white/20" />
+      <div className="mx-auto flex max-w-7xl flex-col gap-12 px-4 pt-4 sm:gap-16 sm:px-6 sm:pt-10 lg:px-8">
+        <header className="sticky top-3 z-50 sm:top-4">
+          <div className="relative mx-auto max-w-6xl rounded-2xl border border-white/10 bg-[#0b0b12]/90 px-3 py-2 shadow-[0_16px_50px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:rounded-full sm:px-5 sm:py-2.5">
+            <div className="flex items-center justify-between gap-3">
+              <a href="#overview" className="flex min-w-0 items-center gap-3" onClick={() => setMenuOpen(false)}>
+                <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-white/15">
+                  <Image
+                    src="/profile.png"
+                    alt=""
+                    fill
+                    sizes="36px"
+                    className="object-cover object-[center_22%]"
+                  />
                 </div>
-                <div>
-                  <p className="text-xs uppercase tracking-[0.4em] text-zinc-400 font-medium">
-                    Portfolio
-                  </p>
-                  <p className="text-2xl font-bold tracking-[0.15em] text-white bg-gradient-to-r from-white via-zinc-100 to-white bg-clip-text text-transparent">
-                    Aman Kumar
-                  </p>
-                </div>
-              </div>
-              <nav className="flex flex-wrap items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-zinc-400 sm:text-xs">
-                {[
-                  { label: "Overview", href: "#overview" },
-                  { label: "Experience", href: "#experience" },
-                  { label: "Work", href: "#projects" },
-                  { label: "Academics", href: "#education" },
-                  { label: "Profiles", href: "#profiles" },
-                  { label: "Contact", href: "#contact" },
-                ].map((item) => (
+                <p className="truncate text-base font-semibold tracking-tight text-white">
+                  Aman Kumar
+                </p>
+              </a>
+              <button
+                type="button"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white lg:hidden"
+                aria-expanded={menuOpen}
+                aria-label={menuOpen ? "Close menu" : "Open menu"}
+                onClick={() => setMenuOpen((open) => !open)}
+              >
+                <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
+                {menuOpen ? (
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+                    <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  </svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+                    <path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  </svg>
+                )}
+              </button>
+              <nav className="hidden items-center gap-1 text-xs font-medium text-zinc-400 lg:flex">
+                {navItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
-                    className="group relative rounded-full border border-transparent px-4 py-2 transition-all duration-300 hover:border-white/30 hover:text-white hover:bg-white/5"
+                    className="shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 transition hover:bg-white/8 hover:text-white"
                   >
-                    <span className="relative z-10">{item.label}</span>
-                    <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#f97316]/10 to-[#c026d3]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {item.label}
                   </a>
                 ))}
               </nav>
             </div>
+            {menuOpen && (
+              <nav className="mt-2 grid gap-1 border-t border-white/10 pt-2 lg:hidden">
+                {navItems.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="rounded-xl px-3 py-3 text-sm font-medium text-zinc-200 hover:bg-white/8 hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            )}
           </div>
         </header>
         <div className="animate-fadein">
           <Hero />
         </div>
-        <section id="experience" className="space-y-10">
+        <section id="experience" className="space-y-6 sm:space-y-10">
           <div className={`transition-all duration-1000 ${visibleSections.has('experience') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <SectionHeading kicker="TRACK RECORD" title="Engineering experiences that shaped my craft" />
+            <SectionHeading kicker="Experience" title="Shipping loan systems people use every day" />
           </div>
-          <div className="grid auto-rows-fr gap-6 lg:grid-cols-2">
+          <div className="grid auto-rows-fr gap-6">
             {experiences.map((experience, idx) => (
               <div
                 key={experience.company}
@@ -142,11 +144,11 @@ export default function Home() {
             ))}
           </div>
         </section>
-        <section id="projects" className="space-y-10">
+        <section id="projects" className="space-y-6 sm:space-y-10">
           <div className={`transition-all duration-1000 ${visibleSections.has('projects') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <SectionHeading kicker="SELECTED WORK" title="Projects I have worked on" />
+            <SectionHeading kicker="Projects" title="Things I built end to end" />
           </div>
-          <div className="grid auto-rows-fr gap-6 lg:grid-cols-3">
+          <div className="grid auto-rows-fr gap-6 lg:grid-cols-2">
             {projects.map((project, idx) => (
               <div
                 key={project.title}
@@ -169,14 +171,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="education" className="space-y-10">
-          {/* <div className={`transition-all duration-1000 ${visibleSections.has('education') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <section id="education" className="space-y-6 sm:space-y-10">
+          <div className={`transition-all duration-1000 ${visibleSections.has('education') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <SectionHeading
-              kicker="ACADEMICS & TOOLING"
-              title="ECE rigor meets product engineering"
-              description="Formal training from IIIT Manipur backed by a versatile skill stack and consistent coding practice."
+              kicker="Education"
+              title="The foundation under the product work"
+              description="B.Tech in CSE (AI & DS) at IIIT Manipur, with a stack spanning Next.js, Node, Django, and the databases those systems run on."
             />
-          </div> */}
+          </div>
           <div className="space-y-6">
             {education.map((entry, idx) => (
               <div
@@ -191,14 +193,12 @@ export default function Home() {
                 <EducationCard entry={entry} />
               </div>
             ))}
-            <div className={`space-y-6 rounded-3xl border border-white/5 bg-white/5 p-6 transition-all duration-1000 ${
+            <div className={`space-y-6 rounded-3xl border border-white/5 bg-white/5 p-4 transition-all duration-1000 sm:p-6 ${
               visibleSections.has('education')
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-12'
             }`} style={{ transitionDelay: '300ms' }}>
-              <p className="text-xs uppercase tracking-[0.4em] text-zinc-500">
-                Skills snapshot
-              </p>
+              <p className="text-sm font-medium text-zinc-400">Skills</p>
               <div className="grid gap-4 sm:grid-cols-2">
                 {skillCategories.map((category, idx) => (
                   <div
@@ -218,15 +218,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="profiles" className="space-y-10">
+        <section id="profiles" className="space-y-6 sm:space-y-10">
           <div className={`transition-all duration-1000 ${visibleSections.has('profiles') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <SectionHeading
-              kicker="CODING PROFILES"
-              title="Practice that powers production work"
+              kicker="Coding"
+              title="Where the problem-solving shows up"
               description="Daily reps across LeetCode and Codeforces keep data structures sharp for real-world shipping."
             />
           </div>
-          <div className="grid gap-6 md:grid-cols-3 auto-rows-fr">
+          <div className="grid gap-6 md:grid-cols-2 auto-rows-fr">
             {profileHighlights.map((highlight, idx) => (
               <div
                 key={highlight.platform}
@@ -238,6 +238,30 @@ export default function Home() {
                 style={{ transitionDelay: `${idx * 120}ms` }}
               >
                 <ProfileHighlightCard highlight={highlight} />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="achievements" className="space-y-6 sm:space-y-10">
+          <div className={`transition-all duration-1000 ${visibleSections.has('achievements') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <SectionHeading
+              kicker="Achievements"
+              title="Contests, rankings, and hackathons"
+            />
+          </div>
+          <div className="grid gap-6 md:grid-cols-3 auto-rows-fr">
+            {insights.map((insight, idx) => (
+              <div
+                key={insight.title}
+                className={`h-full transition-all duration-700 ease-out ${
+                  visibleSections.has('achievements')
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-12'
+                }`}
+                style={{ transitionDelay: `${idx * 120}ms` }}
+              >
+                <InsightCard insight={insight} />
               </div>
             ))}
           </div>
